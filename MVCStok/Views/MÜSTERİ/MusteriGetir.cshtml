@@ -1,0 +1,26 @@
+﻿@model MVCStok.Models.Entity.MUSTERI
+@{
+    ViewBag.Title = "MusteriGetir";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+
+
+@using (Html.BeginForm("Güncelle", "MÜSTERİ", FormMethod.Post))
+{
+    <div class="form-group">
+        @*@Html.LabelFor(x => x.musteri)*@
+        @Html.HiddenFor(x => x.MUSTERID)
+        <br />
+        @Html.LabelFor(x => x.MUSTERIAD)
+        @Html.TextBoxFor(x => x.MUSTERIAD, new { @class = "form-control" })
+        <br />
+        @Html.LabelFor(x => x.MUSTERISOYAD)
+        @Html.TextBoxFor(x => x.MUSTERISOYAD, new { @class = "form-control" })
+        
+
+
+    </div>
+    <div>
+        <button class="btn btn-danger">Müşteri Güncelle</button>
+    </div>
+}

@@ -1,0 +1,25 @@
+﻿@model MVCStok.Models.Entity.KATEGORILER
+@{
+    ViewBag.Title = "YeniKategori";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+
+<form class="form-group" method="post">
+    @*<div>
+        <label>Kategori Adı</label>
+        <input type="text" class="form-control" name="KATEGORIAD"/>
+    </div>*@
+    <br />
+    <div>
+        <label>Kategori Adı</label>
+        @Html.TextBoxFor(x=>x.KATEGORIAD,new  { @class = "form-control"})
+        @Html.ValidationMessageFor(x=>x.KATEGORIAD,"",new {@style = "color:red"})
+        <br />
+
+    </div>
+    <div>
+        <button class="btn btn-info">Kategori Ekleme</button>
+    </div>
+
+</form>
+

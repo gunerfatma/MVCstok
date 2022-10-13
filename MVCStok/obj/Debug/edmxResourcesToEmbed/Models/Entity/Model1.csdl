@@ -1,0 +1,92 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="MVCDbStokModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="KATEGORILER">
+    <Key>
+      <PropertyRef Name="KATEGORID" />
+    </Key>
+    <Property Name="KATEGORID" Type="Int32" Nullable="false" />
+    <Property Name="KATEGORIAD" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="URUNLER" Relationship="Self.FK__URUNLER__URUNKAT__37A5467C" FromRole="KATEGORILER" ToRole="URUNLER" />
+  </EntityType>
+  <EntityType Name="MUSTERI">
+    <Key>
+      <PropertyRef Name="MUSTERID" />
+    </Key>
+    <Property Name="MUSTERID" Type="Int32" Nullable="false" />
+    <Property Name="MUSTERIAD" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="MUSTERISOYAD" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="SATISLAR" Relationship="Self.FK__SATISLAR__MUSTER__398D8EEE" FromRole="MUSTERI" ToRole="SATISLAR" />
+  </EntityType>
+  <EntityType Name="SATISLAR">
+    <Key>
+      <PropertyRef Name="SATISID" />
+    </Key>
+    <Property Name="SATISID" Type="Int32" Nullable="false" />
+    <Property Name="URUN" Type="Int32" />
+    <Property Name="MUSTERI" Type="Int32" />
+    <Property Name="ADET" Type="Byte" />
+    <Property Name="FIYAT" Type="Decimal" Precision="18" Scale="0" />
+    <NavigationProperty Name="MUSTERI1" Relationship="Self.FK__SATISLAR__MUSTER__398D8EEE" FromRole="SATISLAR" ToRole="MUSTERI" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="URUNLER">
+    <Key>
+      <PropertyRef Name="URUNID" />
+    </Key>
+    <Property Name="URUNID" Type="Int32" Nullable="false" />
+    <Property Name="URUNADI" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="URUNKATEGORI" Type="Int32" Nullable="false" />
+    <Property Name="FİYAT" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="MARKA" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="STOK" Type="Byte" />
+    <NavigationProperty Name="KATEGORILER" Relationship="Self.FK__URUNLER__URUNKAT__37A5467C" FromRole="URUNLER" ToRole="KATEGORILER" />
+  </EntityType>
+  <Association Name="FK__URUNLER__URUNKAT__37A5467C">
+    <End Role="KATEGORILER" Type="Self.KATEGORILER" Multiplicity="1" />
+    <End Role="URUNLER" Type="Self.URUNLER" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="KATEGORILER">
+        <PropertyRef Name="KATEGORID" />
+      </Principal>
+      <Dependent Role="URUNLER">
+        <PropertyRef Name="URUNKATEGORI" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__SATISLAR__MUSTER__398D8EEE">
+    <End Role="MUSTERI" Type="Self.MUSTERI" Multiplicity="0..1" />
+    <End Role="SATISLAR" Type="Self.SATISLAR" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MUSTERI">
+        <PropertyRef Name="MUSTERID" />
+      </Principal>
+      <Dependent Role="SATISLAR">
+        <PropertyRef Name="MUSTERI" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="MVCDbStokEntities2" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="KATEGORILER" EntityType="Self.KATEGORILER" />
+    <EntitySet Name="MUSTERI" EntityType="Self.MUSTERI" />
+    <EntitySet Name="SATISLAR" EntityType="Self.SATISLAR" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+    <EntitySet Name="URUNLER" EntityType="Self.URUNLER" />
+    <AssociationSet Name="FK__URUNLER__URUNKAT__37A5467C" Association="Self.FK__URUNLER__URUNKAT__37A5467C">
+      <End Role="KATEGORILER" EntitySet="KATEGORILER" />
+      <End Role="URUNLER" EntitySet="URUNLER" />
+    </AssociationSet>
+    <AssociationSet Name="FK__SATISLAR__MUSTER__398D8EEE" Association="Self.FK__SATISLAR__MUSTER__398D8EEE">
+      <End Role="MUSTERI" EntitySet="MUSTERI" />
+      <End Role="SATISLAR" EntitySet="SATISLAR" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
